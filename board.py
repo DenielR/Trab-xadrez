@@ -31,9 +31,9 @@ class Board:
             self.squares[5][0].piece = Bishop('white', self.squares[5][0])
             self.squares[2][7].piece = Bishop('black', self.squares[2][7])
             self.squares[5][7].piece = Bishop('black', self.squares[5][7])
-            # Inicializa as rainhas
-            self.squares[3][0].piece = Queen('white', self.squares[3][0])
-            self.squares[3][7].piece = Queen('black', self.squares[3][7])
             # Inicializa os reis
-            self.squares[4][0].piece = King('white', self.squares[4][0])
-            self.squares[4][7].piece = King('black', self.squares[4][7])
+            self.squares[3][0].piece = King('white', self.squares[3][0])
+            self.squares[3][7].piece = King('black', self.squares[3][7])
+            # Inicializa as rainhas
+            self.squares[4][0].piece = Queen('white', self.squares[4][0])
+            self.squares[4][7].piece = Queen('black', self.squares[4][7])

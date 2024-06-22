@@ -67,15 +67,27 @@ class Game:
         piece.has_moved = True
         self.move_history.append((piece, from_square, to_square))
         self.current_player_index = 1 - self.current_player_index
-
+        
         if isinstance(piece, Pawn) and (to_square.y == 0 or to_square.y == 7):
             self.promote_pawn(piece)
 
         if self.is_in_check(self.current_player().color):
             if self.is_checkmate(self.current_player().color):
-                messagebox.showinfo("Fim de Jogo", f"Xeque-mate! {self.current_player().color} perdeu.")
+                self.show_checkmate_message(self.current_player().color)
             else:
                 messagebox.showinfo("Aviso", f"Xeque ao rei {self.current_player().color}!")
+
+    def show_checkmate_message(self, color):
+        result = messagebox.askquestion("Fim de Jogo", f"Xeque-mate! {color} perdeu. Deseja reiniciar o jogo?", icon='info')
+        if result == 'yes':
+            self.restart_game()
+    
+    def restart_game(self):
+        self.board = Board()
+        self.current_player_index = 0
+        self.move_history = []
+        self.selected_piece = None
+        self.update_board_ui()
 
     def promote_pawn(self, pawn):
         promotion_window = tk.Toplevel(self.root)
