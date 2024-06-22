@@ -7,7 +7,16 @@ class Knight(Piece):
     def get_valid_moves(self, board):
         moves = []
         x, y = self.position.x, self.position.y
-        deltas = [(1, 2), (2, 1), (-1, 2), (-2, 1), (1, -2), (2, -1), (-1, -2), (-2, -1)]
+        deltas = [
+            (1, 2),  # Movimento para cima e para a direita
+            (2, 1),  # Movimento para a direita e para cima
+            (-1, 2), # Movimento para cima e para a esquerda
+            (-2, 1), # Movimento para a esquerda e para cima
+            (1, -2), # Movimento para baixo e para a direita
+            (2, -1), # Movimento para a direita e para baixo
+            (-1, -2),# Movimento para baixo e para a esquerda
+            (-2, -1) # Movimento para a esquerda e para baixo
+        ]
 
         for dx, dy in deltas:
             if 0 <= x + dx < 8 and 0 <= y + dy < 8:

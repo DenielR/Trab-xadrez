@@ -8,6 +8,7 @@ class Bishop(Piece):
         moves = []
         x, y = self.position.x, self.position.y
 
+        # Diagonal superior direita
         for i in range(1, 8):
             if 0 <= x + i < 8 and 0 <= y + i < 8:
                 if board.squares[x + i][y + i].is_occupied():
@@ -17,6 +18,8 @@ class Bishop(Piece):
                 moves.append(board.squares[x + i][y + i])
             else:
                 break
+
+        # Diagonal superior esquerda        
         for i in range(1, 8):
             if 0 <= x - i < 8 and 0 <= y + i < 8:
                 if board.squares[x - i][y + i].is_occupied():
@@ -26,6 +29,8 @@ class Bishop(Piece):
                 moves.append(board.squares[x - i][y + i])
             else:
                 break
+        
+        # Diagonal inferior direita
         for i in range(1, 8):
             if 0 <= x + i < 8 and 0 <= y - i < 8:
                 if board.squares[x + i][y - i].is_occupied():
@@ -35,6 +40,8 @@ class Bishop(Piece):
                 moves.append(board.squares[x + i][y - i])
             else:
                 break
+        
+        # Diagonal inferior esquerda
         for i in range(1, 8):
             if 0 <= x - i < 8 and 0 <= y - i < 8:
                 if board.squares[x - i][y - i].is_occupied():

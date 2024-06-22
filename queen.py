@@ -1,4 +1,5 @@
 from piece import Piece
+
 class Queen(Piece):
     def __init__(self, color, position):
         super().__init__(color, position)
@@ -8,6 +9,7 @@ class Queen(Piece):
         moves = []
         x, y = self.position.x, self.position.y
 
+        # Diagonal superior direita
         for i in range(1, 8):
             if 0 <= x + i < 8 and 0 <= y + i < 8:
                 if board.squares[x + i][y + i].is_occupied():
@@ -17,6 +19,8 @@ class Queen(Piece):
                 moves.append(board.squares[x + i][y + i])
             else:
                 break
+
+        # Diagonal superior esquerda
         for i in range(1, 8):
             if 0 <= x - i < 8 and 0 <= y + i < 8:
                 if board.squares[x - i][y + i].is_occupied():
@@ -26,6 +30,8 @@ class Queen(Piece):
                 moves.append(board.squares[x - i][y + i])
             else:
                 break
+
+        # Diagonal inferior direita
         for i in range(1, 8):
             if 0 <= x + i < 8 and 0 <= y - i < 8:
                 if board.squares[x + i][y - i].is_occupied():
@@ -35,6 +41,8 @@ class Queen(Piece):
                 moves.append(board.squares[x + i][y - i])
             else:
                 break
+
+        # Diagonal inferior esquerda
         for i in range(1, 8):
             if 0 <= x - i < 8 and 0 <= y - i < 8:
                 if board.squares[x - i][y - i].is_occupied():
@@ -45,6 +53,7 @@ class Queen(Piece):
             else:
                 break
 
+        # Linha horizontal direita
         for i in range(1, 8):
             if 0 <= x + i < 8:
                 if board.squares[x + i][y].is_occupied():
@@ -54,6 +63,8 @@ class Queen(Piece):
                 moves.append(board.squares[x + i][y])
             else:
                 break
+
+        # Linha horizontal esquerda
         for i in range(1, 8):
             if 0 <= x - i < 8:
                 if board.squares[x - i][y].is_occupied():
@@ -63,6 +74,8 @@ class Queen(Piece):
                 moves.append(board.squares[x - i][y])
             else:
                 break
+
+        # Coluna vertical cima
         for i in range(1, 8):
             if 0 <= y + i < 8:
                 if board.squares[x][y + i].is_occupied():
@@ -72,6 +85,8 @@ class Queen(Piece):
                 moves.append(board.squares[x][y + i])
             else:
                 break
+
+        # Coluna vertical baixo
         for i in range(1, 8):
             if 0 <= y - i < 8:
                 if board.squares[x][y - i].is_occupied():

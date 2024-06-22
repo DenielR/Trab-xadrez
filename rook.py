@@ -8,6 +8,7 @@ class Rook(Piece):
         moves = []
         x, y = self.position.x, self.position.y
 
+        # Linha horizontal direita
         for i in range(1, 8):
             if 0 <= x + i < 8:
                 if board.squares[x + i][y].is_occupied():
@@ -17,6 +18,8 @@ class Rook(Piece):
                 moves.append(board.squares[x + i][y])
             else:
                 break
+
+        # Linha horizontal esquerda    
         for i in range(1, 8):
             if 0 <= x - i < 8:
                 if board.squares[x - i][y].is_occupied():
@@ -26,6 +29,8 @@ class Rook(Piece):
                 moves.append(board.squares[x - i][y])
             else:
                 break
+
+        # Coluna vertical cima    
         for i in range(1, 8):
             if 0 <= y + i < 8:
                 if board.squares[x][y + i].is_occupied():
@@ -35,6 +40,8 @@ class Rook(Piece):
                 moves.append(board.squares[x][y + i])
             else:
                 break
+
+        # Coluna vertical baixo    
         for i in range(1, 8):
             if 0 <= y - i < 8:
                 if board.squares[x][y - i].is_occupied():
