@@ -1,10 +1,14 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 from board import Board
 from player import Player
 from ai import AI
 from king import King
-
+from queen import Queen
+from rook import Rook
+from bishop import Bishop
+from knight import Knight
+from pawn import Pawn
 
 class Game:
     def __init__(self, root, against_ai):
@@ -64,11 +68,34 @@ class Game:
         self.move_history.append((piece, from_square, to_square))
         self.current_player_index = 1 - self.current_player_index
 
+        if isinstance(piece, Pawn) and (to_square.y == 0 or to_square.y == 7):
+            self.promote_pawn(piece)
+
         if self.is_in_check(self.current_player().color):
             if self.is_checkmate(self.current_player().color):
                 messagebox.showinfo("Fim de Jogo", f"Xeque-mate! {self.current_player().color} perdeu.")
             else:
                 messagebox.showinfo("Aviso", f"Xeque ao rei {self.current_player().color}!")
+
+    def promote_pawn(self, pawn):
+        promotion_window = tk.Toplevel(self.root)
+        promotion_window.title("Promoção de Peão")
+
+        def promote(piece_class):
+            x, y = pawn.position.x, pawn.position.y
+            self.board.squares[x][y].piece = piece_class(pawn.color, self.board.squares[x][y])
+            promotion_window.destroy()
+            self.update_board_ui()
+        if pawn.color == "black":
+            tk.Button(promotion_window, text="♛", font=("Arial", 24), command=lambda: promote(Queen)).pack(side=tk.LEFT)
+            tk.Button(promotion_window, text="♜", font=("Arial", 24), command=lambda: promote(Rook)).pack(side=tk.LEFT)
+            tk.Button(promotion_window, text="♝", font=("Arial", 24), command=lambda: promote(Bishop)).pack(side=tk.LEFT)
+            tk.Button(promotion_window, text="♞", font=("Arial", 24), command=lambda: promote(Knight)).pack(side=tk.LEFT)
+        if pawn.color == "white":
+            tk.Button(promotion_window, text="♕", font=("Arial", 24), command=lambda: promote(Queen)).pack(side=tk.LEFT)
+            tk.Button(promotion_window, text="♖", font=("Arial", 24), command=lambda: promote(Rook)).pack(side=tk.LEFT)
+            tk.Button(promotion_window, text="♗", font=("Arial", 24), command=lambda: promote(Bishop)).pack(side=tk.LEFT)
+            tk.Button(promotion_window, text="♘", font=("Arial", 24), command=lambda: promote(Knight)).pack(side=tk.LEFT)
 
     def update_board_ui(self):
         for x in range(8):
