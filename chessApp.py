@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from game import Game
 
+# interface gráfica do jogo
 class ChessApp:
     def __init__(self, root):
         self.root = root
