@@ -23,10 +23,17 @@ class Game:
         self.board_frame = tk.Frame(self.root)
         self.board_frame.pack()
         self.squares = [[None for _ in range(8)] for _ in range(8)]
+        # Adiciona a numeração das linhas e letras das colunas
+        for i in range(8):
+            label = tk.Label(self.board_frame, text=chr(ord('a') + i), font=("Arial", 16))
+            label.grid(row=9, column=i + 1, padx=5, pady=5)
+            label = tk.Label(self.board_frame, text=str(8 - i), font=("Arial", 16))
+            label.grid(row=i + 1, column=0, padx=5, pady=5)
+        # Cria os quadrados do tabuleiro
         for x in range(8):
             for y in range(8):
                 frame = tk.Frame(self.board_frame, width=60, height=60)
-                frame.grid(row=y, column=x)
+                frame.grid(row=8 - y, column=8 - x)
                 color = 'white' if (x + y) % 2 == 0 else 'gray'
                 canvas = tk.Canvas(frame, width=60, height=60, bg=color)
                 canvas.bind("<Button-1>", lambda event, x=x, y=y: self.on_square_click(x, y))
@@ -34,6 +41,7 @@ class Game:
                 self.squares[x][y] = canvas
 
         self.update_board_ui()
+
 
     def on_square_click(self, x, y):
         print(f'Square clicked: {x}, {y}')
