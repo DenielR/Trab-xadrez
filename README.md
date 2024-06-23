@@ -87,6 +87,7 @@ class Knight{
 
 Game --|> Board
 Game --|> Player
+Game --|> Player
 Board --|> Square
 Square --|> Piece
 
