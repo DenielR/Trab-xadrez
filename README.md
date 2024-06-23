@@ -7,7 +7,6 @@ classDiagram
 class Player{
 	String color
 	List pieces
-	+make_move()
 	+get_valid_moves(board: Board): List
 }
 

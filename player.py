@@ -3,9 +3,6 @@ class Player:
         self.color = color
         self.pieces = []
 
-    def make_move(self, move):
-        pass
-
     def get_valid_moves(self,board):
         moves = []
         for row in board.squares:
