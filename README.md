@@ -1,7 +1,6 @@
+# Diagrma de Classe
+
 ```mermaid
----
-title: Jogo de Xadrez
----
 classDiagram
 
 class Player{
@@ -95,5 +94,49 @@ Piece <|-- Queen
 Piece <|-- Pawn
 Piece <|-- Rook
 Piece <|-- Knight
+
+```
+
+# Diagrama de Sequência ChatGPT
+
+```mermaid
+sequenceDiagram
+    actor Player
+    participant ChessApp
+    participant Game
+    participant Board
+    participant Square
+    participant Piece
+
+    Player->>ChessApp: Clica em uma peça
+    ChessApp->>Game: on_square_click(x, y)
+    Game->>Square: Verifica se o quadrado está ocupado
+    Square-->>Game: Retorna peça no quadrado (ou None)
+    alt Seleciona uma peça
+        Game->>Piece: Seleciona a peça para mover
+        Game->>Piece: get_valid_moves(board)
+        Piece->>Board: Obtém quadrados válidos para mover
+        Board->>Square: Verifica ocupação dos quadrados
+        Square-->>Board: Retorna estado de ocupação
+        Board-->>Piece: Retorna lista de quadrados válidos
+        Piece-->>Game: Retorna lista de movimentos válidos
+    else Move uma peça
+        alt Movimento válido
+            Game->>Piece: move_piece(to_square)
+            Piece->>Square: Atualiza posição da peça
+            Square->>Piece: Atualiza ocupação dos quadrados
+            Game->>Game: Atualiza histórico de movimentos
+            Game->>Game: Verifica xeque
+            alt Xeque-mate
+                Game->>Player: Exibe mensagem de xeque-mate
+                Player->>Game: Reinicia o jogo
+            else Não é xeque-mate
+                Game->>Player: Exibe mensagem de xeque
+            end
+        else Movimento inválido
+            Game->>Player: Exibe mensagem de movimento inválido
+	end
+    end
+    Game->>ChessApp: Atualiza UI do tabuleiro
 
 ```
