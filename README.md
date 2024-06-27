@@ -85,7 +85,7 @@ class Knight{
 }
 
 class AI{
-    +make_move(board: Board)
+    +make_random_move(board: Board)
 }
 
 Game --> Board
