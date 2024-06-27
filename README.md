@@ -83,10 +83,10 @@ class Knight{
 	+get_valid_moves(board: Board): List
 }
 
-Game --|> Board
-Game --|> Player
-Board --|> Square
-Square --|> Piece
+Game --> Board
+Game --> Player
+Board --> Square
+Square --> Piece
 
 Piece <|-- Bishop
 Piece <|-- King
@@ -97,7 +97,7 @@ Piece <|-- Knight
 
 ```
 
-# Diagrama de Sequência ChatGPT
+# Diagrama de Sequência
 
 ```mermaid
 sequenceDiagram
