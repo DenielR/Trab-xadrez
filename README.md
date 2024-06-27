@@ -1,4 +1,4 @@
-# Diagrma de Classe
+# Diagrama de Classe
 
 ```mermaid
 classDiagram
@@ -29,6 +29,7 @@ class Game{
     +show_checkmate_message(color: str)
     +restart_game()
     +promote_pawn(pawn: Pawn)
+    +after_move_AI()
 }
 
 class Board{
@@ -83,6 +84,10 @@ class Knight{
 	+get_valid_moves(board: Board): List
 }
 
+class AI{
+    +make_move(board: Board)
+}
+
 Game --> Board
 Game --> Player
 Board --> Square
@@ -94,6 +99,7 @@ Piece <|-- Queen
 Piece <|-- Pawn
 Piece <|-- Rook
 Piece <|-- Knight
+Player <|-- AI
 
 ```
 
@@ -107,6 +113,7 @@ sequenceDiagram
     participant Board
     participant Square
     participant Piece
+    participant AI
 
     Player->>ChessApp: Clica em uma peça
     ChessApp->>Game: on_square_click(x, y)
@@ -133,9 +140,16 @@ sequenceDiagram
             else Não é xeque-mate
                 Game->>Player: Exibe mensagem de xeque
             end
+            Game->>Game: after_move_AI()
+            alt Contra IA e vez da IA
+                Game->>AI: make_random_move(board)
+                AI->>Game: move peça aleatoriamente
+                Game->>Game: Atualiza UI do tabuleiro
+                Game->>Game: Alterna jogador
+            end
         else Movimento inválido
             Game->>Player: Exibe mensagem de movimento inválido
-	end
+        end
     end
     Game->>ChessApp: Atualiza UI do tabuleiro
 
