@@ -11,14 +11,23 @@ from knight import Knight
 from pawn import Pawn
 
 class Game:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self, root, against_ai):
-        self.root = root
-        self.against_ai = against_ai
-        self.board = Board()
-        self.players = [Player('white'), AI('black')] if against_ai else [Player('white'), Player('black')]
-        self.current_player_index = 0
-        self.move_history = []
-        self.selected_piece = None
+        if not hasattr(self, 'initialized'):
+            self.root = root
+            self.against_ai = against_ai
+            self.board = Board()
+            self.players = [Player('white'), AI('black')] if against_ai else [Player('white'), Player('black')]
+            self.current_player_index = 0
+            self.move_history = []
+            self.selected_piece = None
+            self.initialized = True
 
     def start_game(self):
         self.setup_board_ui()
